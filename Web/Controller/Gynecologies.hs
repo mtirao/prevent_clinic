@@ -6,6 +6,11 @@ import Web.View.Gynecologies.New
 import Web.View.Gynecologies.Edit
 import Web.View.Gynecologies.Show
 
+instance ToJSON Gynecology where
+    toJSON gynecology = object
+        [ "id" .= get #id gynecology
+        ]
+
 instance Controller GynecologiesController where
     action GynecologiesAction = do
         gynecologies <- query @Gynecology |> fetch

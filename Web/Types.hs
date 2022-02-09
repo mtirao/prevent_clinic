@@ -9,6 +9,24 @@ data WebApplication = WebApplication deriving (Eq, Show)
 
 data StaticController = WelcomeAction deriving (Eq, Show, Data)
 
+data AdultsApiController
+    = AdultsApiAction
+    deriving (Eq, Show, Data)
+
+data GynecologiesApiController
+    = GynecologiesApiAction
+    deriving (Eq, Show, Data)
+
+data ObstetricApiController
+    =  ObstetricApiAction
+    deriving (Eq, Show, Data)
+
+data PediatricsApiController
+    = PediatricsApiAction
+    deriving (Eq, Show, Data)
+
+
+
 data AdultsController
     = AdultsAction
     | NewAdultAction

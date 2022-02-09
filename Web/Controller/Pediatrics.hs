@@ -6,6 +6,12 @@ import Web.View.Pediatrics.New
 import Web.View.Pediatrics.Edit
 import Web.View.Pediatrics.Show
 
+
+instance ToJSON Pediatric where
+    toJSON pediatric = object
+        [ "id" .= get #id pediatric
+        ]
+
 instance Controller PediatricsController where
     action PediatricsAction = do
         pediatrics <- query @Pediatric |> fetch

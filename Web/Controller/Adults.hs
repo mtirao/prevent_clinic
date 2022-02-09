@@ -6,6 +6,11 @@ import Web.View.Adults.New
 import Web.View.Adults.Edit
 import Web.View.Adults.Show
 
+instance ToJSON Adult where
+    toJSON adult = object
+        [ "id" .= get #id adult
+        ]
+
 instance Controller AdultsController where
     action AdultsAction = do
         adults <- query @Adult |> fetch
