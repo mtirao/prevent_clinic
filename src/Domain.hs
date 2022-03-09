@@ -1,0 +1,164 @@
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE QuasiQuotes       #-}
+{-# LANGUAGE TemplateHaskell       #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
+{-# LANGUAGE TypeFamilies          #-}
+{-# LANGUAGE RecordWildCards       #-}
+
+
+module Domain where
+
+import Data.Text.Lazy
+import Data.Text.Lazy.Encoding
+import Data.Aeson
+import Control.Applicative
+import GHC.Generics
+import Data.Time.LocalTime
+
+
+
+--- Adult
+data Adult = Adult 
+    {bloodPressureDiastolic :: Integer
+    , bloodPressureMonitoring :: Bool
+    , bloodPressureSystolic :: Integer
+    , adultDate :: Maybe LocalTime
+    , diabetes :: Integer
+    , diabetesTreatment :: Integer
+    , glucoseMonitoring :: Bool
+    , adultId :: Maybe Integer
+    , immunization :: Integer
+    , lipidDisorder :: Integer
+    , lipidDisorderMonitoring :: Bool
+    , lipidDisorderTreatment :: Bool
+    , nutritionalMonitoring ::  Bool
+    , nutritionalValue :: Integer
+    , adultPatientid :: Integer
+    , smokingCessation :: Integer
+    }
+
+instance ToJSON Adult where
+    toJSON Adult {..} = object [
+        "bloodpressurediastolic" .= bloodPressureDiastolic,
+        "bloodpressuremonitoring" .= bloodPressureMonitoring,
+        "bloodpressuresystolic" .= bloodPressureSystolic,
+        "date" .= adultDate,
+        "diabetes" .= diabetes,
+        "diabetesTreatment" .= diabetesTreatment,
+        "glocusemonitoring" .= glucoseMonitoring,
+        "adultid" .= adultId,
+        "immunization" .= immunization,
+        "lipiddisorder" .= lipidDisorder,
+        "lipiddisordermonitoring" .= lipidDisorderMonitoring,
+        "lipisdisordertreatment" .= lipidDisorderTreatment,
+        "nutritionalmonitoring" .= nutritionalMonitoring,
+        "nutritionalValue" .= nutritionalValue,
+        "patientid" .= adultPatientid,
+        "smokingcessation" .= smokingCessation
+        ]
+
+
+instance FromJSON Adult where
+    parseJSON (Object v) = Adult <$>
+        v .: "bloodpressurediastolic" <*>
+        v .: "bloodpressuremonitoring" <*>
+        v .: "bloodpressuresystolic" <*>
+        v .:? "date" <*>
+        v .: "diabetes" <*>
+        v .: "diabetestreatment" <*>
+        v .: "glocusemonitoring" <*>
+        v .:? "adultid" <*>
+        v .: "immunization" <*>
+        v .: "lipiddisorder" <*>
+        v .: "lipiddisordermonitoring" <*>
+        v .: "lipisdisordertreatment" <*>
+        v .: "nutritionalmonitoring" <*>
+        v .: "nutritionalvalue" <*>
+        v .: "patientid" <*>
+       v .:  "smokingcessation"
+
+-- Gynecology
+data Gynecology = Gynecology
+    {cevicouterinoTracking :: Integer
+    , contraception :: Integer
+    , gynecologyDate :: LocalTime
+    , hpvImmunization :: Integer
+    , gynecologyId :: Maybe Integer
+    , lastPapResult :: Integer
+    , gynecologyPatiendId :: Integer
+    , teenBoarding :: Bool
+    , trackingIts :: Integer
+    }
+
+instance ToJSON Gynecology where
+     toJSON Gynecology {..} = object [
+        "cevicouterinotracking" .= cevicouterinoTracking,
+        "contraception" .= contraception,
+        "date" .= gynecologyDate,
+        "hpvimmunization" .= hpvImmunization,
+        "id" .= gynecologyId,
+        "lastpapresult" .= lastPapResult,
+        "patientid" .= gynecologyPatiendId,
+        "teenboarding" .= teenBoarding,
+        "trackingits" .= trackingIts
+        ]
+
+instance FromJSON Gynecology where
+    parseJSON (Object v) = Gynecology <$>
+        v .: "cevicouterinotracking" <*>
+        v .: "contraception" <*>
+        v .: "date" <*>
+        v .: "hpvimmunization" <*>
+        v .:? "id" <*>
+        v .: "lastpapresult" <*>
+        v .: "patientid" <*>
+        v .: "teenboarding" <*>
+        v .: "trackingits"
+
+-- Obstetric
+data Obstetric = Obstetric
+    {breastfeeding :: Integer
+    , obstetricDate :: LocalTime
+    , obstetricId :: Maybe Integer
+    , obstetricImmunization :: Integer
+    , itsPromotion :: Bool
+    , nutritionalStatus :: Integer
+    , nutritionalStatusTreatment :: Bool
+    , obstetricPatientId :: Integer
+    , perinatalInvestigations :: Integer
+    , physiscalActivityPrescription :: Integer
+    , problmeticConsuption :: Integer
+    , psychoprophylaxis :: Integer
+    }
+
+instance ToJSON Obstetric where
+     toJSON Obstetric {..} = object [
+         "breastfeeding" .= breastfeeding,
+         "date" .= obstetricDate,
+         "id" .= obstetricId,
+         "immunization" .= obstetricImmunization,
+         "itspromotion" .= itsPromotion,
+         "nutritionalstatus" .= nutritionalStatus,
+         "nutritionalstatustreatment" .= nutritionalStatusTreatment,
+         "patientid" .= obstetricPatientId,
+         "perinatalinvestigation" .= perinatalInvestigations,
+         "physicalactivityprescription" .= physiscalActivityPrescription,
+         "problematicconsuption" .= problmeticConsuption,
+         "psychoprophylaxis" .= psychoprophylaxis
+        ]
+
+instance FromJSON Obstetric where
+    parseJSON (Object v) = Obstetric <$>
+        v .: "breastfeeding" <*>
+        v .: "date" <*>
+        v .:? "id" <*>
+        v .: "immunization" <*>
+        v .: "itspromotion" <*>
+        v .: "nutritionalstatus" <*>
+        v .: "nutritionalstatustreatment" <*>
+        v .: "patientid" <*>
+        v .: "perinatalinvestigation" <*>
+         v .: "physicalactivityprescription" <*>
+         v .: "problematicconsuption" <*>
+         v .: "psychoprophylaxis"

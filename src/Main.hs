@@ -1,5 +1,12 @@
 module Main where
 
+import Db.Db as Db
+
+import Domain
+import Views
+
+import Controller.AdultsController
+
 import qualified Data.Configurator as C
 import qualified Data.Configurator.Types as C
 import qualified Data.Text.Lazy as TL
@@ -11,7 +18,6 @@ import Web.Scotty.Internal.Types (ActionT)
 
 import Database.PostgreSQL.Simple
 
-import Db.Db as Db
 
 import Network.Wai.Middleware.Static
 import Network.Wai.Middleware.RequestLogger (logStdout)
@@ -42,5 +48,7 @@ main = do
             scotty 3200 $ do
                 middleware $ staticPolicy (noDots >-> addBase "static") -- serve static files
                 middleware $ logStdout    
-
-                get "/" $ do text "hello"
+                
+                -- ADULTS
+                post "/api/prevent/adult" $ createAdult pool
+                get "/api/prevent/adults" $ listAdult pool

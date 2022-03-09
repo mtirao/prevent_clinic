@@ -38,4 +38,9 @@ executable clinic
                     , http-types
                     , time
     other-modules: 
-        Db.Db
+        Domain
+        , Views
+        , Db.Db
+        , Db.Adults
+        , Db.Obstetrics
+        , Controller.AdultsController
