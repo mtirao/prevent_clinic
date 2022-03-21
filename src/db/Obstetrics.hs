@@ -44,7 +44,7 @@ instance DbOperation Obstetric where
                             oneObstetric _ = Nothing
     
     list  pool = do
-                    res <- fetchSimple pool "SELECT breast_feeding, obstetric_date, obstetric_id, obstetric_immunization, its_promotion, nutritional_status, nutritional_status_treatment, obstetric_patient_id, perinatal_investigation, problematic_consuption, psychoprophylaxis FROM obstetrics" :: [(Integer, LocalTime, Maybe Integer, Integer, Bool,  Integer, Bool, Integer, Integer, Integer, Integer, Integer)]
+                    res <- fetchSimple pool "SELECT breast_feeding, obstetric_date, obstetric_id, obstetric_immunization, its_promotion, nutritional_status, nutritional_status_treatment, obstetric_patient_id, perinatal_investigation, problematic_consuption, psychoprophylaxis FROM obstetrics" :: IO [(Integer, LocalTime, Maybe Integer, Integer, Bool,  Integer, Bool, Integer, Integer, Integer, Integer, Integer)]
                     return $ map (\a -> buildObstetric a) res
 
 

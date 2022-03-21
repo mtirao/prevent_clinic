@@ -43,4 +43,9 @@ executable clinic
         , Db.Db
         , Db.Adults
         , Db.Obstetrics
+        , Db.Gynecology
+        , Db.Pediatrics
         , Controller.AdultsController
+        , Controller.GynecologiesController
+        , Controller.ObstetricsController
+        , Controller.PediatricsController

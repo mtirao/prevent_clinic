@@ -6,6 +6,9 @@ import Domain
 import Views
 
 import Controller.AdultsController
+import Controller.GynecologiesController
+import Controller.ObstetricsController
+import Controller.PediatricsController
 
 import qualified Data.Configurator as C
 import qualified Data.Configurator.Types as C
@@ -52,3 +55,15 @@ main = do
                 -- ADULTS
                 post "/api/prevent/adult" $ createAdult pool
                 get "/api/prevent/adults" $ listAdult pool
+
+                -- GYNECOLOGIES
+                post "/api/prevent/gynecology" $ createGynecology pool
+                get "/api/prevent/gynecoloies" $ listGynecology pool
+
+                -- OBSTETRICS
+                post "/api/prevent/obstetric" $ createObstetric pool
+                get "/api/prevent/obstetrics" $ listObstetric pool
+
+                -- PEDIATRICS
+                post "/api/prevent/pediatric" $ createPediatric pool
+                get "/api/prevent/pediatrics" $ listPediatric pool

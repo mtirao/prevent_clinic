@@ -162,3 +162,59 @@ instance FromJSON Obstetric where
          v .: "physicalactivityprescription" <*>
          v .: "problematicconsuption" <*>
          v .: "psychoprophylaxis"
+
+-- Pediatric
+data Pediatric = Pediatric
+    {accidentPreventionPromo :: Integer
+    , breastfeedingPed :: Integer
+    , breastfeedingPromotion :: Bool
+    , date :: LocalTime
+    , pediatricId :: Maybe Integer
+    , immunizationPed :: Integer
+    , mentalHealth :: Integer
+    , nutritionalPromotion :: Bool
+    , nutritionalStatusPed :: Integer
+    , oralHealth :: Integer
+    , oralHealthPromotion :: Bool
+    , pediatricPatientid :: Integer
+    , trackHearingProblems :: Integer
+    , trackMetabolicProblems :: Integer
+    , trackOphthalmologicalProblems :: Integer
+    }
+
+instance ToJSON Pediatric where
+     toJSON Pediatric {..} = object [
+         "accidentpreventionpromo" .= accidentPreventionPromo,
+         "breastfeeding" .= breastfeedingPed,
+         "breastfeedingpromotion" .= breastfeedingPromotion,
+         "date" .= date,
+         "id" .= pediatricId,
+         "immunization" .= immunizationPed,
+         "mentalhealth" .= mentalHealth,
+         "nutritionalpromotion" .= nutritionalPromotion,
+         "nutritionalstatus" .= nutritionalStatusPed,
+         "oralhealth" .= oralHealth,
+         "oralhealthpromotion" .= oralHealthPromotion,
+         "patientid" .= pediatricPatientid,
+         "trackhearingproblems" .= trackHearingProblems,
+         "trackmetabolicproblems" .= trackMetabolicProblems,
+         "trackophthalmologicalproblems" .= trackOphthalmologicalProblems
+        ]
+
+instance FromJSON Pediatric where
+    parseJSON (Object v) = Pediatric <$>
+         v .: "accidentpreventionpromo" <*>
+         v .: "breastfeeding" <*>
+         v .: "breastfeedingpromotion" <*>
+         v .: "date" <*>
+         v .:? "id" <*>
+         v .: "immunization" <*>
+         v .: "mentalhealth" <*>
+         v .: "nutritionalpromotion" <*>
+         v .: "nutritionalstatus" <*>
+         v .: "oralhealth" <*>
+         v .: "oralhealthpromotion" <*>
+         v .: "patientid" <*>
+         v .: "trackhearingproblems" <*>
+         v .: "trackmetabolicproblems" <*>
+         v .: "trackophthalmologicalproblems"
