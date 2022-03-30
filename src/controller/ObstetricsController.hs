@@ -35,16 +35,8 @@ createObstetric pool =  do
                         obtetric <- return $ (decode b :: Maybe Obstetric)
                         case obtetric of
                             Nothing -> status status401
-                            Just _ -> obtetricResponse pool obtetric
+                            Just _ -> controllerInsertResponse pool obtetric
 
-obtetricResponse pool obtetric = do 
-                                dbObtetric <- liftIO $ insert pool obtetric
-                                case dbObtetric of
-                                        Nothing -> status status400
-                                        Just a -> dbObtetricResponse
-                                                where dbObtetricResponse   = do
-                                                                        jsonResponse a
-                                                                        status status201
 
 --- GET & LIST
 listObstetric pool =  do

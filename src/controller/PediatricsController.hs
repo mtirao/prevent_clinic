@@ -35,16 +35,8 @@ createPediatric pool =  do
                         pediatric <- return $ (decode b :: Maybe Pediatric)
                         case pediatric of
                             Nothing -> status status401
-                            Just _ -> pediatricResponse pool pediatric
+                            Just _ -> controllerInsertResponse pool pediatric
 
-pediatricResponse pool pediatric = do 
-                                dbPediatric <- liftIO $ insert pool pediatric
-                                case dbPediatric of
-                                        Nothing -> status status400
-                                        Just a -> dbPediatricResponse 
-                                                where dbPediatricResponse   = do
-                                                                        jsonResponse a
-                                                                        status status201
 
 --- GET & LIST
 listPediatric pool =  do

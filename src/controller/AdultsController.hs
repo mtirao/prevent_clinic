@@ -35,18 +35,19 @@ createAdult pool =  do
                         adult <- return $ (decode b :: Maybe Adult)
                         case adult of
                             Nothing -> status status401
-                            Just _ -> adultResponse pool adult
+                            Just _ -> controllerInsertResponse pool adult
 
-adultResponse pool adult = do 
-                                dbAdult <- liftIO $ insert pool adult
-                                case dbAdult of
-                                        Nothing -> status status400
-                                        Just a -> dbAdultResponse 
-                                                where dbAdultResponse   = do
-                                                                        jsonResponse a
-                                                                        status status201
 
 --- GET & LIST
 listAdult pool =  do
                         adults <- liftIO $ (list pool :: IO [Adult])
+                        jsonResponse adults
+
+findNewer pool =  do
+                        adults <- liftIO $ (findLast pool :: IO (Maybe Adult))
+                        jsonResponse adults
+
+
+getAdult pool id = do
+                        adults <- liftIO $ (find pool id :: IO (Maybe Adult))
                         jsonResponse adults

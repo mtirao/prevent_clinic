@@ -20,22 +20,22 @@ import Data.Time.LocalTime
 
 --- Adult
 data Adult = Adult 
-    {bloodPressureDiastolic :: Integer
-    , bloodPressureMonitoring :: Bool
-    , bloodPressureSystolic :: Integer
+    {bloodPressureDiastolic :: Maybe Integer
+    , bloodPressureMonitoring :: Maybe Bool
+    , bloodPressureSystolic :: Maybe Integer
     , adultDate :: Maybe LocalTime
-    , diabetes :: Integer
-    , diabetesTreatment :: Integer
-    , glucoseMonitoring :: Bool
+    , diabetes :: Maybe Integer
+    , diabetesTreatment :: Maybe Integer
+    , glucoseMonitoring :: Maybe Bool
     , adultId :: Maybe Integer
-    , immunization :: Integer
-    , lipidDisorder :: Integer
-    , lipidDisorderMonitoring :: Bool
-    , lipidDisorderTreatment :: Bool
-    , nutritionalMonitoring ::  Bool
-    , nutritionalValue :: Integer
+    , immunization :: Maybe Integer
+    , lipidDisorder ::Maybe  Integer
+    , lipidDisorderMonitoring :: Maybe Bool
+    , lipidDisorderTreatment :: Maybe Integer
+    , nutritionalMonitoring ::  Maybe Bool
+    , nutritionalValue :: Maybe Integer
     , adultPatientid :: Integer
-    , smokingCessation :: Integer
+    , smokingCessation :: Maybe Integer
     }
 
 instance ToJSON Adult where
@@ -45,7 +45,7 @@ instance ToJSON Adult where
         "bloodpressuresystolic" .= bloodPressureSystolic,
         "date" .= adultDate,
         "diabetes" .= diabetes,
-        "diabetesTreatment" .= diabetesTreatment,
+        "diabetestreatment" .= diabetesTreatment,
         "glocusemonitoring" .= glucoseMonitoring,
         "adultid" .= adultId,
         "immunization" .= immunization,
@@ -53,7 +53,7 @@ instance ToJSON Adult where
         "lipiddisordermonitoring" .= lipidDisorderMonitoring,
         "lipisdisordertreatment" .= lipidDisorderTreatment,
         "nutritionalmonitoring" .= nutritionalMonitoring,
-        "nutritionalValue" .= nutritionalValue,
+        "nutritionalvalue" .= nutritionalValue,
         "patientid" .= adultPatientid,
         "smokingcessation" .= smokingCessation
         ]
@@ -61,22 +61,22 @@ instance ToJSON Adult where
 
 instance FromJSON Adult where
     parseJSON (Object v) = Adult <$>
-        v .: "bloodpressurediastolic" <*>
-        v .: "bloodpressuremonitoring" <*>
-        v .: "bloodpressuresystolic" <*>
+        v .:? "bloodpressurediastolic" <*>
+        v .:? "bloodpressuremonitoring" <*>
+        v .:? "bloodpressuresystolic" <*>
         v .:? "date" <*>
-        v .: "diabetes" <*>
-        v .: "diabetestreatment" <*>
-        v .: "glocusemonitoring" <*>
+        v .:? "diabetes" <*>
+        v .:? "diabetestreatment" <*>
+        v .:? "glucosemonitoring" <*>
         v .:? "adultid" <*>
-        v .: "immunization" <*>
-        v .: "lipiddisorder" <*>
-        v .: "lipiddisordermonitoring" <*>
-        v .: "lipisdisordertreatment" <*>
-        v .: "nutritionalmonitoring" <*>
-        v .: "nutritionalvalue" <*>
+        v .:? "immunization" <*>
+        v .:? "lipiddisorder" <*>
+        v .:? "lipiddisordermonitoring" <*>
+        v .:? "lipisdisordertreatment" <*>
+        v .:? "nutritionalmonitoring" <*>
+        v .:? "nutritionalvalue" <*>
         v .: "patientid" <*>
-       v .:  "smokingcessation"
+       v .:?  "smokingcessation"
 
 -- Gynecology
 data Gynecology = Gynecology

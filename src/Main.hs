@@ -55,6 +55,10 @@ main = do
                 -- ADULTS
                 post "/api/prevent/adult" $ createAdult pool
                 get "/api/prevent/adults" $ listAdult pool
+                get "/api/prevent/adult/last" $ findNewer pool
+                get "/api/prevent/adult/:id" $ do 
+                                                idd <- param "id" :: ActionM TL.Text
+                                                getAdult pool idd
 
                 -- GYNECOLOGIES
                 post "/api/prevent/gynecology" $ createGynecology pool

@@ -35,16 +35,8 @@ createGynecology pool =  do
                         gynecology <- return $ (decode b :: Maybe Gynecology)
                         case gynecology of
                             Nothing -> status status401
-                            Just _ -> gynecologyResponse pool gynecology
+                            Just _ -> controllerInsertResponse pool gynecology
 
-gynecologyResponse pool gynecology = do 
-                                dbGynecology <- liftIO $ insert pool gynecology
-                                case dbGynecology of
-                                        Nothing -> status status400
-                                        Just a -> dbGynecologyResponse 
-                                                where dbGynecologyResponse   = do
-                                                                        jsonResponse a
-                                                                        status status201
 
 --- GET & LIST
 listGynecology pool =  do
