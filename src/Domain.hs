@@ -218,3 +218,15 @@ instance FromJSON Pediatric where
          v .: "trackhearingproblems" <*>
          v .: "trackmetabolicproblems" <*>
          v .: "trackophthalmologicalproblems"
+
+--- Patient and Clinic
+data Patient = Patient {
+    patientid :: Integer
+    ,profileid :: Integer
+}
+
+instance ToJSON Patient where
+     toJSON Patient {..} = object [
+         "patientid" .= patientid,
+         "profileid" .= profileid
+        ]

@@ -39,9 +39,9 @@ createAdult pool =  do
 
 
 --- GET & LIST
-listAdult pool =  do
-                        adults <- liftIO $ (list pool :: IO [Adult])
-                        jsonResponse adults
+listAdultsForPatient pool id =  do
+                                    adults <- liftIO $ (listAdults pool id :: IO [Adult]) --(listAdults pool id :: IO [Adult])
+                                    jsonResponse adults
 
 findNewer pool =  do
                         adults <- liftIO $ (findLast pool :: IO (Maybe Adult))

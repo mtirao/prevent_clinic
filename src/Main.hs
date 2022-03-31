@@ -9,6 +9,7 @@ import Controller.AdultsController
 import Controller.GynecologiesController
 import Controller.ObstetricsController
 import Controller.PediatricsController
+import Controller.PatientsController
 
 import qualified Data.Configurator as C
 import qualified Data.Configurator.Types as C
@@ -54,7 +55,9 @@ main = do
                 
                 -- ADULTS
                 post "/api/prevent/adult" $ createAdult pool
-                get "/api/prevent/adults" $ listAdult pool
+                get "/api/prevent/adults/:id" $ do
+                                                    idd <- param "id" :: ActionM TL.Text
+                                                    listAdultsForPatient pool idd
                 get "/api/prevent/adult/last" $ findNewer pool
                 get "/api/prevent/adult/:id" $ do 
                                                 idd <- param "id" :: ActionM TL.Text
@@ -71,3 +74,6 @@ main = do
                 -- PEDIATRICS
                 post "/api/prevent/pediatric" $ createPediatric pool
                 get "/api/prevent/pediatrics" $ listPediatric pool
+
+                -- PATIENTS
+                get "/api/prevent/new/patients" $ listPatients pool

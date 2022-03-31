@@ -50,6 +50,12 @@ findLast pool = do
                             Maybe Integer, Maybe Integer, Maybe Integer, Maybe Bool, Maybe Integer, Maybe Bool, Maybe Integer, Integer, Maybe Integer)]
                     return $ oneAdult res
 
+listAdults pool id = do
+                        res <- fetch pool (Only id) "SELECT blood_pressure_diastolic, blood_pressure_monitoring, blood_pressure_systolic, date, diabetes, diabetes_treatment, glucose_monitoring, id, immunization, lipid_disorder, lipid_disorder_monitoring, lipid_disorder_treatment, nutritional_monitoring, nutritional_value, patient_id, smoking_cessation FROM adults where patient_id = ?" :: IO [(Maybe Integer, Maybe Bool, Maybe Integer, Maybe LocalTime, Maybe Integer, Maybe Integer, Maybe Bool,
+                            Maybe Integer, Maybe Integer, Maybe Integer, Maybe Bool, Maybe Integer, Maybe Bool, Maybe Integer, Integer, Maybe Integer)]
+                        return $ map (\a -> buildAdult a) res
+
+
 instance DbOperation Adult where
     insert pool (Just a) = do
                 res <- executeAdult pool a "INSERT INTO adults(blood_pressure_diastolic, blood_pressure_monitoring, blood_pressure_systolic, date, diabetes, diabetes_treatment, glucose_monitoring, immunization, lipid_disorder, lipid_disorder_monitoring, lipid_disorder_treatment, nutritional_monitoring, nutritional_value, patient_id, smoking_cessation) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) RETURNING blood_pressure_diastolic, blood_pressure_monitoring, blood_pressure_systolic, date, diabetes, diabetes_treatment, glucose_monitoring, id, immunization, lipid_disorder, lipid_disorder_monitoring, lipid_disorder_treatment, nutritional_monitoring, nutritional_value, patient_id, smoking_cessation"
