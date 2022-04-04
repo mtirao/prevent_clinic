@@ -67,7 +67,7 @@ instance FromJSON Adult where
         v .:? "date" <*>
         v .:? "diabetes" <*>
         v .:? "diabetestreatment" <*>
-        v .:? "glucosemonitoring" <*>
+        v .:? "glocusemonitoring" <*>
         v .:? "adultid" <*>
         v .:? "immunization" <*>
         v .:? "lipiddisorder" <*>
