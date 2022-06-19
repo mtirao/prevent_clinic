@@ -40,12 +40,12 @@ executable clinic
     other-modules: 
         Domain
         , Views
-        , Db.Db
-        , Db.Adults
-        , Db.Obstetrics
-        , Db.Gynecology
-        , Db.Pediatrics
-        , Db.Patients
+        , Db
+        , Adults
+        , Obstetrics
+        , Gynecology
+        , Pediatrics
+        , Patients
         , Controller.AdultsController
         , Controller.GynecologiesController
         , Controller.ObstetricsController
