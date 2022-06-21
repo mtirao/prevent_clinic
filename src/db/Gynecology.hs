@@ -2,9 +2,9 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE RecordWildCards #-}
 
-module Db.Gynecology where
+module Gynecology where
 
-import Db.Db
+import Db
 import Domain
 
 import Web.Scotty.Internal.Types (ActionT)

@@ -1,12 +1,12 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE DeriveGeneric #-}
 
-module Controller.ObstetricsController where
+module ObstetricsController where
 
 import Domain
 import Views
-import Db.Obstetrics
-import Db.Db
+import Obstetrics
+import Db
 
 import Web.Scotty
 import Web.Scotty.Internal.Types (ActionT)

@@ -5,11 +5,11 @@ import Db as Db
 import Domain
 import Views
 
-import Controller.AdultsController
-import Controller.GynecologiesController
-import Controller.ObstetricsController
-import Controller.PediatricsController
-import Controller.PatientsController
+import AdultsController
+import GynecologiesController
+import ObstetricsController
+import PediatricsController
+import PatientsController
 
 import qualified Data.Configurator as C
 import qualified Data.Configurator.Types as C
