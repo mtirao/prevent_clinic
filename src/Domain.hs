@@ -81,8 +81,8 @@ instance FromJSON Adult where
 -- Gynecology
 data Gynecology = Gynecology
     {cevicouterinoTracking :: Integer
-    , contraception :: Integer
-    , gynecologyDate :: LocalTime
+    , birthcontrol :: Integer
+    , gynecologyDate :: Maybe LocalTime
     , hpvImmunization :: Integer
     , gynecologyId :: Maybe Integer
     , lastPapResult :: Integer
@@ -94,7 +94,7 @@ data Gynecology = Gynecology
 instance ToJSON Gynecology where
      toJSON Gynecology {..} = object [
         "cevicouterinotracking" .= cevicouterinoTracking,
-        "contraception" .= contraception,
+        "birthcontrol" .= birthcontrol,
         "date" .= gynecologyDate,
         "hpvimmunization" .= hpvImmunization,
         "id" .= gynecologyId,
@@ -107,8 +107,8 @@ instance ToJSON Gynecology where
 instance FromJSON Gynecology where
     parseJSON (Object v) = Gynecology <$>
         v .: "cevicouterinotracking" <*>
-        v .: "contraception" <*>
-        v .: "date" <*>
+        v .: "birthcontrol" <*>
+        v .:? "date" <*>
         v .: "hpvimmunization" <*>
         v .:? "id" <*>
         v .: "lastpapresult" <*>

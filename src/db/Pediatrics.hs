@@ -37,11 +37,11 @@ buildPediatric (accident_prevention_promo, breast_feeding_ped, breast_feeding_pr
 
 instance DbOperation Pediatric where
     insert pool (Just a) = do
-                res <- executePediatric pool a "INSERT INTO gynecologies(cevicouterino_tracking, contraception, date, hpv_immmunizatio, last_pap_result, patient_id, teen_boarding, tracking_its) VALUES(?,?,?,?,?,?,?,?,?) RETURNING cevicouterino_tracking, contraception, date, hpv_immmunizatio, last_pap_result, patient_id, teen_boarding, tracking_its"
+                res <- executePediatric pool a "INSERT INTO gynecologies(cevicouterino_tracking, birth_control, date, hpv_immmunizatio, last_pap_result, patient_id, teen_boarding, tracking_its) VALUES(?,?,?,?,?,?,?,?,?) RETURNING cevicouterino_tracking, birth_control, date, hpv_immmunizatio, last_pap_result, patient_id, teen_boarding, tracking_its"
                 return $ onePediatric res
                     where   onePediatric (pediatric: _) = Just $ buildPediatric pediatric
                             onePediatric _ = Nothing
     
     list  pool = do
-                    res <- fetchSimple pool "SELECT cevicouterino_tracking, contraception, date, hpv_immmunizatio, last_pap_result, patient_id, teen_boarding, tracking_its FROM gynecologies" :: IO [(Integer, Integer, Bool, LocalTime, Maybe Integer, Integer, Integer, Bool,  Integer, Integer, Bool, Integer, Integer, Integer, Integer)]
+                    res <- fetchSimple pool "SELECT cevicouterino_tracking, birth_control, date, hpv_immmunizatio, last_pap_result, patient_id, teen_boarding, tracking_its FROM gynecologies" :: IO [(Integer, Integer, Bool, LocalTime, Maybe Integer, Integer, Integer, Bool,  Integer, Integer, Bool, Integer, Integer, Integer, Integer)]
                     return $ map (\a -> buildPediatric a) res
