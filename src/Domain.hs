@@ -119,7 +119,7 @@ instance FromJSON Gynecology where
 -- Obstetric
 data Obstetric = Obstetric
     {breastfeeding :: Integer
-    , obstetricDate :: LocalTime
+    , obstetricDate :: Maybe LocalTime
     , obstetricId :: Maybe Integer
     , obstetricImmunization :: Integer
     , itsPromotion :: Bool
@@ -151,7 +151,7 @@ instance ToJSON Obstetric where
 instance FromJSON Obstetric where
     parseJSON (Object v) = Obstetric <$>
         v .: "breastfeeding" <*>
-        v .: "date" <*>
+        v .:? "date" <*>
         v .:? "id" <*>
         v .: "immunization" <*>
         v .: "itspromotion" <*>
@@ -168,7 +168,7 @@ data Pediatric = Pediatric
     {accidentPreventionPromo :: Integer
     , breastfeedingPed :: Integer
     , breastfeedingPromotion :: Bool
-    , date :: LocalTime
+    , date :: Maybe LocalTime
     , pediatricId :: Maybe Integer
     , immunizationPed :: Integer
     , mentalHealth :: Integer
@@ -206,7 +206,7 @@ instance FromJSON Pediatric where
          v .: "accidentpreventionpromo" <*>
          v .: "breastfeeding" <*>
          v .: "breastfeedingpromotion" <*>
-         v .: "date" <*>
+         v .:? "date" <*>
          v .:? "id" <*>
          v .: "immunization" <*>
          v .: "mentalhealth" <*>

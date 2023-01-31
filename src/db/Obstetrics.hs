@@ -20,17 +20,17 @@ import GHC.Int
 import Data.Time.LocalTime
 
 
-obstetricTuple :: Obstetric -> (Integer, LocalTime, Maybe Integer, Integer, Bool,  Integer, Bool,Integer, Integer, Integer, Integer, Integer)
+obstetricTuple :: Obstetric -> (Integer, Maybe LocalTime, Maybe Integer, Integer, Bool,  Integer, Bool,Integer, Integer, Integer, Integer, Integer)
 obstetricTuple a = ((breastfeeding a), (obstetricDate a), (obstetricId a), 
                             (obstetricImmunization a), (itsPromotion a), (nutritionalStatus a), (nutritionalStatusTreatment a), 
                             (obstetricPatientId a), (perinatalInvestigations a), (physiscalActivityPrescription a), 
                             (problmeticConsuption a), (psychoprophylaxis a))
 
-executeObstertric :: Pool Connection -> Obstetric -> Query -> IO [(Integer, LocalTime, Maybe Integer, Integer, Bool,  Integer, Bool,
+executeObstertric :: Pool Connection -> Obstetric -> Query -> IO [(Integer, Maybe LocalTime, Maybe Integer, Integer, Bool,  Integer, Bool,
                             Integer, Integer, Integer, Integer, Integer)]
-executeObstertric pool a query = do fetch pool (obstetricTuple a) query :: IO [(Integer, LocalTime, Maybe Integer, Integer, Bool,  Integer, Bool, Integer, Integer, Integer, Integer, Integer)]
+executeObstertric pool a query = do fetch pool (obstetricTuple a) query :: IO [(Integer, Maybe LocalTime, Maybe Integer, Integer, Bool,  Integer, Bool, Integer, Integer, Integer, Integer, Integer)]
 
-buildObstetric :: (Integer, LocalTime, Maybe Integer, Integer, Bool,  Integer, Bool,
+buildObstetric :: (Integer, Maybe LocalTime, Maybe Integer, Integer, Bool,  Integer, Bool,
                             Integer, Integer, Integer, Integer, Integer) -> Obstetric
 buildObstetric (breast_feeding, obstetric_date, obstetric_id, obstetric_immunization,
             its_promotion, nutritional_status, nutritional_status_treatment, obstetric_patient_id, 
@@ -44,7 +44,7 @@ instance DbOperation Obstetric where
                             oneObstetric _ = Nothing
     
     list  pool = do
-                    res <- fetchSimple pool "SELECT breast_feeding, obstetric_date, obstetric_id, obstetric_immunization, its_promotion, nutritional_status, nutritional_status_treatment, obstetric_patient_id, perinatal_investigation, problematic_consuption, psychoprophylaxis FROM obstetrics" :: IO [(Integer, LocalTime, Maybe Integer, Integer, Bool,  Integer, Bool, Integer, Integer, Integer, Integer, Integer)]
+                    res <- fetchSimple pool "SELECT breast_feeding, obstetric_date, obstetric_id, obstetric_immunization, its_promotion, nutritional_status, nutritional_status_treatment, obstetric_patient_id, perinatal_investigation, problematic_consuption, psychoprophylaxis FROM obstetrics" :: IO [(Integer, Maybe LocalTime, Maybe Integer, Integer, Bool,  Integer, Bool, Integer, Integer, Integer, Integer, Integer)]
                     return $ map (\a -> buildObstetric a) res
 
 
